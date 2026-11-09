@@ -1,0 +1,39 @@
+name: Build SoundKey After Effects Plugin
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    name: Build SoundKey.aex (Windows 64-bit)
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Setup MSVC Compiler Environment
+      uses: ilammy/msvc-dev-cmd@v1
+      with:
+        arch: x64
+
+    - name: Configure CMake
+      run: |
+        mkdir build
+        cd build
+        cmake -G "Visual Studio 17 2022" -A x64 ..
+
+    - name: Compile SoundKey.aex (Release)
+      run: |
+        cd build
+        cmake --build . --config Release
+
+    - name: Upload SoundKey.aex Binary Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: SoundKey-Windows-Plugin-aex
+        path: build/Release/SoundKey.aex
+        retention-days: 30
