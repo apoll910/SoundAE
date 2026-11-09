@@ -1,0 +1,7 @@
+// Microsoft Visual C++ generated resource script.
+#include "winres.h"
+
+LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
+
+// Załączenie skompilowanego pliku binarnego PiPL (wygenerowanego przez PiPLTool z pliku .r)
+16000 RCDATA "SoundKey_PiPL.rrc"
